@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.venv/
+.sloth_tidy_log.json
+.DS_Store
