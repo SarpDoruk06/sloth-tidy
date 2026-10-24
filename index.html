@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sloth-tidy: a lazy, local file tidier</title>
+<meta name="description" content="sloth-tidy sorts your messy Downloads folder with an open-weight AI model running on your own computer. Private, free and offline.">
+<style>
+  :root {
+    --bg: #f6f3ec; --surface: #fffdf8; --ink: #2b2a26; --muted: #6b675d;
+    --accent: #5b7a4a; --accent-ink: #ffffff; --line: #e2dccd; --code: #efe9db;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1d19; --surface: #232620; --ink: #ece8dd; --muted: #a39f92;
+      --accent: #8fb27a; --accent-ink: #14160f; --line: #34382f; --code: #2a2d26;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 64px 0 40px; }
+  .tag { color: var(--muted); font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: clamp(34px, 7vw, 52px); line-height: 1.1; margin: 10px 0 16px; letter-spacing: -.02em; }
+  .lead { font-size: 20px; color: var(--muted); max-width: 34em; margin: 0 0 28px; }
+  .btn {
+    display: inline-block; padding: 12px 20px; border-radius: 10px; text-decoration: none;
+    background: var(--accent); color: var(--accent-ink); font-weight: 600;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); margin-left: 8px; }
+  .btn:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  section { padding: 28px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 24px; margin: 0 0 14px; letter-spacing: -.01em; }
+  ol, ul { padding-left: 1.2em; margin: 0; }
+  li { margin: 8px 0; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 6px; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+  pre {
+    background: var(--code); border-radius: 10px; padding: 16px; overflow-x: auto;
+    font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin: 12px 0;
+  }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em; }
+  footer { padding: 32px 0 56px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); }
+  a { color: var(--accent); }
+  @media (max-width: 480px) { .btn.ghost { margin: 10px 0 0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag">Hacktoberfest Open-Source AI Challenge &middot; Slow and Steady</div>
+    <h1>Let a sloth tidy your Downloads folder.</h1>
+    <p class="lead">sloth-tidy sorts messy files into the right folders using an open-weight AI model that runs on your own computer. Your documents never leave your laptop.</p>
+    <a class="btn" href="https://github.com/SarpDoruk06/sloth-tidy">View the code on GitHub</a>
+    <a class="btn ghost" href="#start">How to run it</a>
+  </header>
+
+  <section>
+    <h2>What it does</h2>
+    <div class="grid">
+      <div class="card"><h3>Sorts and renames</h3><p>Reads the first page of PDFs and text files, picks a folder (Uni, Receipts, Travel&hellip;) and gives each file a readable name.</p></div>
+      <div class="card"><h3>Offers reminders</h3><p>Spots a future date in a flight ticket or deadline and asks if you want a calendar reminder. Nothing is added without your yes.</p></div>
+      <div class="card"><h3>Finds duplicates</h3><p>Identical files are detected and you choose which copy to keep. The other one moves to a Duplicates folder. Nothing is deleted.</p></div>
+      <div class="card"><h3>Easy to undo</h3><p>It only shows what it would do until you say so, never overwrites a file, and one command reverts the last run.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why open-source AI?</h2>
+    <ul>
+      <li><strong>Private.</strong> Receipts, tickets and university documents stay on your machine. No server you do not control.</li>
+      <li><strong>Free and offline.</strong> After a one-time model download it costs nothing and works without internet.</li>
+      <li><strong>Swappable.</strong> Do not like how one model sorts? Change one option and try another, like Gemma or Qwen.</li>
+    </ul>
+  </section>
+
+  <section id="start">
+    <h2>Try it</h2>
+    <ol>
+      <li>Install <a href="https://ollama.com">Ollama</a> and download a model:
+        <pre>ollama pull gemma3:4b</pre></li>
+      <li>Get the code and install the two Python libraries:
+        <pre>git clone https://github.com/SarpDoruk06/sloth-tidy
+cd YOUR-REPO
+pip install -r requirements.txt</pre></li>
+      <li>Do a dry run first. It only prints what would happen:
+        <pre>python sloth_tidy.py ~/Downloads</pre></li>
+      <li>Happy with it? Add <code>--apply</code>. Changed your mind? Use <code>--undo</code>.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Honest limits</h2>
+    <p>Small models sometimes pick the wrong folder or misread a date, which is why there is a dry run, an undo, and a confirmation before any reminder is created. Scanned PDFs without text can only be judged by their file name.</p>
+  </section>
+
+  <footer>
+    Built with <a href="https://ollama.com">Ollama</a>, <a href="https://ai.google.dev/gemma">Gemma</a> and Python by Sarp Doruk Onan for the DEV Hacktoberfest Open-Source AI Challenge, Week 3.
+  </footer>
+</div>
+</body>
+</html>
