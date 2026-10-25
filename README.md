@@ -98,3 +98,5 @@ pytest
 
 Uses [Ollama](https://ollama.com), [Gemma](https://ai.google.dev/gemma) and [pypdf](https://pypdf.readthedocs.io).
 Started and built during the challenge window (19 to 25 October 2026).
+Built with the help of an AI assistant (Claude).
+Demo video: https://youtu.be/rEWJ3euYJP8
